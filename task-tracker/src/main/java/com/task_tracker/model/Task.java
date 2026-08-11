@@ -62,11 +62,4 @@ public class Task {
     public String toString() {
         return String.format("ID: [%d] \nDesc: %s\nStatus: %s\n\n", id, description, status);
     }
-
-}
-
-enum Status {
-    TODO,
-    IN_PROGRESS,
-    DONE
 }
