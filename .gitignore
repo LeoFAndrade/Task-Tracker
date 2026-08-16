@@ -18,8 +18,13 @@
 *.zip
 *.tar.gz
 *.rar
+*.lst
+*.xml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
 .vscode/settings.json
+task-tracker/target/maven-archiver/pom.properties
+task-tracker/target/surefire-reports/com.task_tracker.MainTest.txt
+tasks.json
