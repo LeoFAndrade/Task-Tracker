@@ -54,9 +54,10 @@ public class TaskService {
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return tasks; 
     }
-
+    
+    /*
     public ArrayList<Task> getDoneTasks() {
         return tasks;
     }
@@ -67,7 +68,7 @@ public class TaskService {
 
     public ArrayList<Task> getInProgressTasks() {
         return tasks;
-    }
+    } */
 
     public Task findTaskById(int id) {
         Task foundTask = null;
