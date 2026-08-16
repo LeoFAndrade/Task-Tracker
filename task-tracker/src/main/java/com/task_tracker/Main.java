@@ -1,24 +1,35 @@
 package com.task_tracker;
 
-import java.util.Scanner;
 import com.task_tracker.service.TaskService;
+
+import java.util.ArrayList;
+
+import com.task_tracker.cli.CommandHandler;
 import com.task_tracker.model.Task;
+import com.task_tracker.repository.*;
+import com.task_tracker.json.JsonParser;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskService tasks = new TaskService();
+        TaskRepository repo = new TaskRepository();
 
-        System.out.print("Crie uma nova tarefa: ");
-        String description = scanner.nextLine();
-        Task task = new Task(description);
-        tasks.add(task);
+        // Step 1: create some tasks and save them
+        TaskService taskService = new TaskService();
+        taskService.add(new Task("Comprar leite"));
+        taskService.add(new Task("Estudar Java"));
+        repo.saveToJSON(taskService.getTasks());
 
-        System.out.println("\nTarefas cadastradas:");
-        for (Task t : tasks.getTasks()) {
+        System.out.println("Saved tasks:");
+        for (Task t : taskService.getTasks()) {
             System.out.println(t);
         }
 
-        scanner.close();
+        // Step 2: load tasks back from the file (simulating a fresh program start)
+        System.out.println("\nLoaded tasks:");
+        ArrayList<Task> loadedTasks = repo.loadFromJSON();
+        for (Task t : loadedTasks) {
+            System.out.println(t);
+        }
+
     }
 }
