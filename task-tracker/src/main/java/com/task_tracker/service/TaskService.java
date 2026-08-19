@@ -2,23 +2,30 @@ package com.task_tracker.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 import com.task_tracker.model.Task;
 import com.task_tracker.model.Status;
 
 public class TaskService {
-    ArrayList<Task> tasks = new ArrayList<>();
+    ArrayList<Task> tasks;
 
-    int nextId = 0;
-
+    public TaskService(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+    
     public void add(Task task) {
+        int maxId = -1;
+
         for (Task t : tasks) {
-            if (t.getId() > nextId) {
-                nextId = t.getId();
+            if (t.getId() > maxId) {
+                
+                maxId = t.getId();
             }
         }
 
-        task.setId(nextId++);
+        task.setId(maxId + 1);
         tasks.add(task);
+
     }
 
     public void update(int id, String description) {
@@ -54,21 +61,41 @@ public class TaskService {
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks; 
-    }
-    
-    /*
-    public ArrayList<Task> getDoneTasks() {
         return tasks;
+    }
+
+    public ArrayList<Task> getDoneTasks() {
+        ArrayList<Task> doneTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getStatus().equals("DONE")) {
+                doneTasks.add(task);
+            }
+        }
+        return doneTasks;
     }
 
     public ArrayList<Task> getNotDoneTasks() {
-        return tasks;
+        ArrayList<Task> notDoneTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getStatus().equals("TODO")) {
+                notDoneTasks.add(task);
+            }
+        }
+        return notDoneTasks;
     }
 
     public ArrayList<Task> getInProgressTasks() {
-        return tasks;
-    } */
+        ArrayList<Task> inProgressTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getStatus().equals("IN_PROGRESS")) {
+                inProgressTasks.add(task);
+            }
+        }
+        return inProgressTasks;
+    }
 
     public Task findTaskById(int id) {
         Task foundTask = null;

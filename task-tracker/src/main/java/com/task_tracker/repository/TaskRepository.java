@@ -40,7 +40,17 @@ public class TaskRepository {
     public ArrayList<Task> loadFromJSON() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            String fileContent = Files.readString(path);
+
+            if (!Files.exists(path)) {
+                return tasks;
+            }
+
+            String fileContent = Files.readString(path).trim();
+
+            if (fileContent.isEmpty() || fileContent.equals("[]")) {
+                return tasks;
+            }
+
             String noBrackets = fileContent.substring(1, fileContent.length() - 1);
             ArrayList<String> pieces = jsonParser.jsonToStringArray(noBrackets);
             tasks = jsonParser.jsonToTaskArray(pieces);

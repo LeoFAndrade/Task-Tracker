@@ -9,6 +9,10 @@ public class JsonParser {
     public ArrayList<String> jsonToStringArray(String jsonArray) {
         ArrayList<String> stringList = new ArrayList<>();
 
+        if (jsonArray == null || jsonArray.trim().isEmpty()) {
+            return stringList;
+        }
+
         String objectString = "";
         int depth = 0;
         int start = 0;
