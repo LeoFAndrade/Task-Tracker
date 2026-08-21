@@ -68,7 +68,7 @@ public class TaskService {
         ArrayList<Task> doneTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.getStatus().equals("DONE")) {
+            if (task.getStatus() == Status.DONE) {
                 doneTasks.add(task);
             }
         }
@@ -79,7 +79,7 @@ public class TaskService {
         ArrayList<Task> notDoneTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.getStatus().equals("TODO")) {
+            if (task.getStatus() == Status.TODO) {
                 notDoneTasks.add(task);
             }
         }
@@ -90,7 +90,7 @@ public class TaskService {
         ArrayList<Task> inProgressTasks = new ArrayList<>();
 
         for (Task task : tasks) {
-            if (task.getStatus().equals("IN_PROGRESS")) {
+            if (task.getStatus() == Status.IN_PROGRESS) {
                 inProgressTasks.add(task);
             }
         }
