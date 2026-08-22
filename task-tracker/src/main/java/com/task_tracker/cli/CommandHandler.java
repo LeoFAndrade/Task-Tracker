@@ -15,20 +15,42 @@ public class CommandHandler {
 
         switch (args[0]) {
             case "add":
+                if (args.length < 2) {
+                    System.out.println("No description provided");
+                    break;
+                }
                 String description = args[1];
                 Task task = new Task(description);
                 tasks.add(task);
                 break;
 
             case "update":
-                int id = Integer.parseInt(args[1]);
-                description = args[2];
-                tasks.update(id, description);
+                if (args.length < 3) {
+                    System.out.println("No description provided");
+                    break;
+                }
+                try {
+                    int id = Integer.parseInt(args[1]);
+                    description = args[2];
+                    tasks.update(id, description);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid id: " + args[1] + " is not a number");
+                }
+
                 break;
 
             case "delete":
-                id = Integer.parseInt(args[1]);
-                tasks.delete(id);
+                if (args.length < 2) {
+                    System.out.println("No id provided");
+                    break;
+                }
+                try {
+                    int id = Integer.parseInt(args[1]);
+                    tasks.delete(id);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid id: " + args[1] + " is not a number");
+                }
+
                 break;
 
             case "list":
@@ -67,18 +89,37 @@ public class CommandHandler {
                 break;
 
             case "mark-in-progress":
-                id = Integer.parseInt(args[1]);
-                Status status = Status.IN_PROGRESS;
-                tasks.markStatus(id, status);
+                if (args.length < 2) {
+                    System.out.println("No id provided");
+                    break;
+                }
+                try {
+                    int id = Integer.parseInt(args[1]);
+                    Status status = Status.IN_PROGRESS;
+                    tasks.markStatus(id, status);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid id: " + args[1] + " is not a number");
+                }
+
                 break;
 
             case "mark-done":
-                id = Integer.parseInt(args[1]);
-                status = Status.DONE;
-                tasks.markStatus(id, status);
+                if (args.length < 2) {
+                    System.out.println("No id provided");
+                    break;
+                }
+                try {
+                    int id = Integer.parseInt(args[1]);
+                    Status status = Status.DONE;
+                    tasks.markStatus(id, status);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid id: " + args[1] + " is not a number");
+                }
+
                 break;
 
             default:
+                System.out.println("Unknown Command");
                 break;
         }
     }
