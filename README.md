@@ -2,6 +2,8 @@
 
 A command-line interface (CLI) application to track and manage your tasks, built in Java with no external libraries — including a hand-written JSON parser/serializer for persistence.
 
+Project idea from [roadmap.sh](https://roadmap.sh): https://roadmap.sh/projects/task-tracker
+
 ## Features
 
 - Add, update, and delete tasks
