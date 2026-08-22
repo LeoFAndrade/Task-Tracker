@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import com.task_tracker.model.*;
 
-
 public class JsonParser {
 
     public ArrayList<String> jsonToStringArray(String jsonArray) {
@@ -40,15 +39,31 @@ public class JsonParser {
     }
 
     public Task jsonToTask(String jsonObject) {
+        String withoutBraces = jsonObject.replaceAll("[{}]", "");
 
-        String cleanedString = jsonObject.replaceAll("[\\[\\]{}\"\"]", "");
-        String[] fieldSeparation = cleanedString.split(",");
+        ArrayList<String> fields = new ArrayList<>();
+        int start = 0;
+        boolean insideQuotes = false;
 
-        int id = Integer.parseInt(fieldSeparation[0].split(":", 2)[1].strip());
-        String description = fieldSeparation[1].split(":", 2)[1].strip();
-        Status status = Status.valueOf(fieldSeparation[2].split(":", 2)[1].strip());
-        LocalDateTime createdAt = LocalDateTime.parse(fieldSeparation[3].split(":", 2)[1].strip());
-        LocalDateTime updatedAt = LocalDateTime.parse(fieldSeparation[4].split(":", 2)[1].strip());
+        for (int i = 0; i < withoutBraces.length(); i++) {
+            char c = withoutBraces.charAt(i);
+
+            if (c == '"') {
+                insideQuotes = !insideQuotes;
+            }
+
+            if (c == ',' && !insideQuotes) {
+                fields.add(withoutBraces.substring(start, i));
+                start = i + 1;
+            }
+        }
+        fields.add(withoutBraces.substring(start, withoutBraces.length()));
+
+        int id = Integer.parseInt(fields.get(0).replaceAll("\"", "").split(":", 2)[1].strip());
+        String description = fields.get(1).replaceAll("\"", "").split(":", 2)[1].strip();
+        Status status = Status.valueOf(fields.get(2).replaceAll("\"", "").split(":", 2)[1].strip());
+        LocalDateTime createdAt = LocalDateTime.parse(fields.get(3).replaceAll("\"", "").split(":", 2)[1].strip());
+        LocalDateTime updatedAt = LocalDateTime.parse(fields.get(4).replaceAll("\"", "").split(":", 2)[1].strip());
 
         Task task = new Task(description, id, status, createdAt, updatedAt);
         return task;
