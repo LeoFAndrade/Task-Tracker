@@ -9,7 +9,7 @@ public class CommandHandler {
     public void execute(String[] args, TaskService tasks) {
 
         if (args.length == 0) {
-            System.out.println("Nenhum comando fornecido.");
+            System.out.println("No command provided.");
             return;
         }
 
